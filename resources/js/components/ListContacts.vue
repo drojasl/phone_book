@@ -12,16 +12,38 @@
         class="contacts-table"
     >
         <template v-slot:top>
-            <v-text-field v-model="searchQuery" label="Search" class="mx-4"></v-text-field>
+            <v-text-field
+                v-model="searchQuery"
+                label="Search"
+                outlined
+                dense
+                clearable
+            ></v-text-field>
         </template>
+
         <template v-slot:item="{ item }">
             <tr>
-                <td class="name-column">{{ item.name }}</td>
-                <td class="phone-column">{{ item.phone }}</td>
-                <td class="actions-column">
-                    {{ item.actions }}
-                    <v-btn color="red" @click="deleteContact(item.id)">
-                        Delete
+                <td class="align-items-center">
+                    <v-icon small left color="primary" class="mr-2"
+                        >mdi-account</v-icon
+                    >
+                    {{ item.name }}
+                </td>
+                <td class="align-items-center">
+                    <v-icon small left color="primary" class="mr-2"
+                        >mdi-phone</v-icon
+                    >
+                    {{ item.phone }}
+                </td>
+                <td class="text-center">
+                    <v-btn
+                        color="red"
+                        icon
+                        @click="deleteContact(item.id)"
+                        class="delete-btn align-items-center"
+                        small
+                    >
+                        <v-icon small>mdi-delete</v-icon>
                     </v-btn>
                 </td>
             </tr>
@@ -82,21 +104,3 @@ const deleteContact = async (id) => {
 onMounted(fetchContacts);
 watch(() => props.refreshKey, fetchContacts);
 </script>
-
-<style scoped>
-.contacts-table .v-data-table__wrapper {
-    overflow-x: auto;
-}
-
-.contacts-table .v-data-table__cell.name-column {
-    width: 50%;
-}
-
-.contacts-table .v-data-table__cell.phone-column {
-    width: 40%;
-}
-
-.contacts-table .v-data-table__cell.actions-column {
-    width: 10%;
-}
-</style>

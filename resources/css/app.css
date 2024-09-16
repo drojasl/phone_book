@@ -1,0 +1,14 @@
+.alert-danger {
+    color: red;
+    font-weight: bold;
+    background-color: #f5a7a7;
+    width: 50%;
+    text-align: center;
+    margin: 1rem auto;
+    padding: 2rem 1rem;
+}
+
+.custom-container {
+    width: 60%;
+    margin: 1rem auto;
+}

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\ContactService;
@@ -13,11 +12,23 @@ class ContactController extends Controller
 {
     protected $contactService;
 
+    /**
+     * Constructor to initialize the ContactService dependency
+     *
+     * @param ContactService $contactService
+     */
     public function __construct(ContactService $contactService)
     {
         $this->contactService = $contactService;
     }
 
+    /**
+     * Fetches a paginated list of contacts.
+     * Handles optional search query and pagination parameters.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request)
     {
         try {
@@ -33,6 +44,12 @@ class ContactController extends Controller
         }
     }
 
+    /**
+     * Stores a new contact in the database
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         try {
@@ -46,6 +63,13 @@ class ContactController extends Controller
         }
     }
 
+    /**
+     * Deletes a specific contact by its ID.
+     * Handles exceptions if the contact is not found.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete($id)
     {
         try {

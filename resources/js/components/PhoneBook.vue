@@ -1,16 +1,19 @@
 <template>
     <div class="container mt-4">
         <div class="card mb-4">
-            <div class="card-header m-4">
+            <div class="card-header mt-5 custom-container">
                 <h1 class="card-title text-center m-4">Phone Book</h1>
             </div>
             <div class="card-body">
                 <div v-if="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ errorMessage }}
-                    <button type="button" class="btn-close" @click="errorMessage = ''" aria-label="Close"></button>
                 </div>
-                <AddContact @contact-added="triggerUpdate" @error="setError" />
-                <ListContacts :refresh-key="refreshKey" @error="setError" />
+                <div class="custom-container m-2">
+                    <AddContact @contact-added="triggerUpdate" @error="setError" />
+                </div>
+                <div class="custom-container m-2">
+                    <ListContacts :refresh-key="refreshKey" @error="setError" />
+                </div>
             </div>
         </div>
     </div>
