@@ -15,10 +15,10 @@ class ContactService
         $this->contactRepository = $contactRepository;
     }
 
-    public function getAllContacts()
+    public function getContacts($page=1, $perPage=10, $search="")
     {
         try {
-            return $this->contactRepository->getAllContacts();
+            return $this->contactRepository->getAllContacts($page, $perPage, $search);
 
         } catch (\Exception $e) {
             throw $e;

@@ -8,6 +8,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/contacts', [ContactController::class, 'index']);
-Route::post('/contacts', [ContactController::class, 'store']);
-Route::delete('/contacts/{id}', [ContactController::class, 'delete']);
+Route::prefix('contacts')->group(function () {
+    Route::get('/', [ContactController::class, 'index']);
+    Route::post('/', [ContactController::class, 'store']);
+    Route::delete('/{id}', [ContactController::class, 'delete']);
+});

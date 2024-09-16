@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Services\ContactService;
@@ -17,14 +18,16 @@ class ContactController extends Controller
         $this->contactService = $contactService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $contacts = $this->contactService->getAllContacts();
+            $page = $request->get('page', 1);
+            $perPage = $request->get('per_page', 10);
+            $search = $request->get('search', 10);
+
+            $contacts = $this->contactService->getContacts($page, $perPage, $search);
             return response()->json($contacts);
 
-        } catch (ValidationException $e) {
-            return response()->json(['error' => $e->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -36,6 +39,8 @@ class ContactController extends Controller
             $contact = $this->contactService->createContact($request->all());
             return response()->json($contact, 201);
 
+        } catch (ValidationException $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

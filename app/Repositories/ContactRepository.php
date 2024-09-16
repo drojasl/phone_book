@@ -6,10 +6,17 @@ use App\Models\Contact;
 
 class ContactRepository
 {
-    public function getAllContacts()
+    public function getAllContacts($page=1, $perPage=10, $search="")
     {
         try {
-            return Contact::all();
+            $query = Contact::query();
+
+            if (!empty($search)) {
+                $query->where(function($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')->orWhere('phone', 'like', '%' . $search . '%');
+                });
+            }
+            return $query->paginate($perPage, ['id', 'name', 'phone'], 'page', $page);
 
         } catch (\Exception $e) {
             throw $e;

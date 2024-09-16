@@ -1,17 +1,18 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 import './bootstrap';
+
 import { createApp } from 'vue';
 
-/**
- * Next, we will create a fresh Vue application instance. You may then begin
- * registering components with the application instance so they are ready
- * to use in your application's views. An example is included for you.
- */
+// Vuetify
+import '@mdi/font/css/materialdesignicons.css';
+import 'vuetify/styles';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
 
-import app from './components/App.vue';
-createApp(app).mount('#app');
+import App from './components/App.vue';
+const vuetify = createVuetify({
+    components,
+    directives
+});
+
+createApp(App).use(vuetify).mount('#app');
